@@ -32,3 +32,5 @@ if (Config.Framework == "auto" and GetResourceState("qb-core") == "started") or 
     QBCore.Jobs = jobs
   end)
 end
+
+

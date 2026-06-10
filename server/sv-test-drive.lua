@@ -30,7 +30,16 @@ lib.callback.register("jg-dealerships:server:start-test-drive", function(source,
     else
         -- Handle Client-Side Spawning Verification
         if clientNetId then
-            vehicleEntity = NetworkGetEntityFromNetworkId(clientNetId)
+            -- FIX: Give the client's network pack time to synchronize the vehicle to the server
+            local timeout = 50
+            while timeout > 0 do
+                vehicleEntity = NetworkGetEntityFromNetworkId(clientNetId)
+                if vehicleEntity and vehicleEntity ~= 0 and DoesEntityExist(vehicleEntity) then
+                    break
+                end
+                Wait(50)
+                timeout = timeout - 1
+            end
         end
     end
 

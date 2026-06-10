@@ -33,7 +33,7 @@ Config.SellVehicleKeyBind = 38
 -- If you know what this means, I do recommend enabling it but be aware you may experience reliability issues on more populated servers
 -- Having significant issues? I beg you to just set it back to false before opening a ticket with us
 -- Want to read my rant about server spawned vehicles? https://docs.jgscripts.com/advanced-garages/misc/why-are-you-not-using-createvehicleserversetter-by-default
-Config.SpawnVehiclesWithServerSetter = true
+Config.SpawnVehiclesWithServerSetter = false
 
 -- Finance (to disable finance, you have to do it on a per-location basis with Config.DealershipLocations below)
 Config.FinancePayments = 12
@@ -65,7 +65,7 @@ Config.VehicleOrderTime = 1 -- in mins
 Config.ManagerCanChangePriceOfVehicles = true -- Managers can change the price of vehicles in the dealership
 
 -- Vehicle colour options (for purchases & display vehicles)
-Config.UseRGBColors = true -- this will use the index instead of hex, see https://pastebin.com/pwHci0xK (hex will still be used in the ui)
+Config.UseRGBColors = false -- this will use the index instead of hex, see https://pastebin.com/pwHci0xK (hex will still be used in the ui)
 Config.VehicleColourOptions = {
   {label = "Red", hex = "#e81416", index = 27},
   {label = "Orange", hex = "#ff7518", index = 38},

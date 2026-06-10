@@ -21,7 +21,7 @@ end
 ---@param marker table
 local function drawMarkerOnFrame(coords, marker)
   ---@diagnostic disable-next-line: missing-parameter
-  DrawMarker(marker.id, coords.x, coords.y, coords.z, 0, 0, 0, 0, 0, 0, marker.size.x,  marker.size.y, marker.size.z, marker.color.r, marker.color.g, marker.color.b, marker.color.a, marker.bobUpAndDown, marker.faceCamera, 0, marker.rotate, marker.drawOnEnts)
+  DrawMarker(marker.id, coords.x, coords.y, coords.z, 0, 0, 0, 0, 0, 0, marker.size.x, marker.size.y, marker.size.z, marker.color.r, marker.color.g, marker.color.b, marker.color.a, marker.bobUpAndDown, marker.faceCamera, 0, marker.rotate, marker.drawOnEnts)
 end
 
 ---@param coords vector3
@@ -31,6 +31,8 @@ end
 ---@param onExit function
 ---@param nearby function | nil
 local function createLocation(coords, dist, marker, onEnter, onExit, nearby)
+  if not coords then return end
+  
   local point = lib.points.new({
     coords = coords,
     distance = dist,
@@ -52,77 +54,100 @@ local function createLocation(coords, dist, marker, onEnter, onExit, nearby)
   points[#points+1] = markerPoint
 end
 
--- New code
-
 local function createDealershipZonesAndBlips()
-  for _, point in ipairs(points) do point:remove() end  -- Remove existing zones
-  for _, blip in ipairs(blips) do RemoveBlip(blip) end -- Remove existing blips 
+  for _, point in ipairs(points) do 
+    if point and point.remove then point:remove() end 
+  end
+  points = {}
+
+  for _, blip in ipairs(blips) do 
+    if DoesBlipExist(blip) then RemoveBlip(blip) end 
+  end 
+  blips = {}
 
   local dealerships = lib.callback.await("jg-dealerships:server:get-locations-data", false)
+  if not dealerships then return end
 
   for _, dealer in ipairs(dealerships) do
     if dealer and dealer.config then
-      if IsShowroomAccessAllowed(dealer.name) or (dealer.type == "owned" and dealer.managementAccess) then
-        -- Showroom location
-        createLocation(
-          dealer.config.openShowroom?.coords or dealer.config.openShowroom,
-          dealer.config.openShowroom?.size or 5,
-          not dealer.config.hideMarkers and dealer.config.markers or false,
-          function() Framework.Client.ShowTextUI(Config.OpenShowroomPrompt) end,
-          function() Framework.Client.HideTextUI() end,
-          function()
-            if IsControlJustPressed(0, Config.OpenShowroomKeyBind) then
-              TriggerEvent("jg-dealerships:client:open-showroom", dealer.name)
-            end
-          end
-        )
+      
+      -- Standardize configuration extraction to avoid '?' syntax crashes
+      local srCfg = dealer.config.openShowroom
+      local srCoords = (type(srCfg) == "table" and srCfg.coords) or srCfg
+      local srSize = (type(srCfg) == "table" and srCfg.size) or 5
 
-        -- Sell vehicle location (if enabled)
-        if dealer.config.enableSellVehicle then
+      if IsShowroomAccessAllowed(dealer.name) or (dealer.type == "owned" and dealer.managementAccess) then
+        if srCoords then
           createLocation(
-            dealer.config.sellVehicle?.coords or dealer.config.sellVehicle,
-            dealer.config.sellVehicle?.size or 5,
+            srCoords,
+            srSize,
             not dealer.config.hideMarkers and dealer.config.markers or false,
-            function() Framework.Client.ShowTextUI(Config.SellVehiclePrompt) end,
+            function() Framework.Client.ShowTextUI(Config.OpenShowroomPrompt) end,
             function() Framework.Client.HideTextUI() end,
             function()
-              if IsControlJustPressed(0, Config.SellVehicleKeyBind) then
-                TriggerEvent("jg-dealerships:client:sell-vehicle", dealer.name)
+              if IsControlJustPressed(0, Config.OpenShowroomKeyBind) then
+                TriggerEvent("jg-dealerships:client:open-showroom", dealer.name)
               end
             end
           )
         end
 
-        -- Blip
-        if not dealer.config.hideBlip then
-          local blipName = Locale.dealership .. ": " .. dealer.label
+        if dealer.config.enableSellVehicle then
+          local sellCfg = dealer.config.sellVehicle
+          local sellCoords = (type(sellCfg) == "table" and sellCfg.coords) or sellCfg
+          local sellSize = (type(sellCfg) == "table" and sellCfg.size) or 5
+
+          if sellCoords then
+            createLocation(
+              sellCoords,
+              sellSize,
+              not dealer.config.hideMarkers and dealer.config.markers or false,
+              function() Framework.Client.ShowTextUI(Config.SellVehiclePrompt) end,
+              function() Framework.Client.HideTextUI() end,
+              function()
+                if IsControlJustPressed(0, Config.SellVehicleKeyBind) then
+                  TriggerEvent("jg-dealerships:client:sell-vehicle", dealer.name)
+                end
+              end
+            )
+          end
+        end
+
+        if not dealer.config.hideBlip and srCoords then
+          local blipName = (Locale.dealership or "Dealership") .. ": " .. (dealer.label or "")
+          local blipData = dealer.config.blip or {}
           local blip = createBlip(
             blipName,
-            dealer.config.openShowroom?.coords or dealer.config.openShowroom,
-            dealer.config.blip.id,
-            dealer.config.blip.color,
-            dealer.config.blip.scale
+            srCoords,
+            blipData.id or 326,
+            blipData.color or 3,
+            blipData.scale or 0.8
           )
-          
           blips[#blips + 1] = blip
         end
       end
     
-      -- Management location
       if dealer.type == "owned" and dealer.managementAccess then
-        createLocation(
-          dealer.config.openManagement?.coords or dealer.config.openManagement,
-          dealer.config.openManagement?.size or 5,
-          not dealer.config.hideMarkers and dealer.config.markers or false,
-          function() Framework.Client.ShowTextUI(Config.OpenManagementPrompt) end,
-          function() Framework.Client.HideTextUI() end,
-          function()
-            if IsControlJustPressed(0, Config.OpenManagementKeyBind) then
-              TriggerEvent("jg-dealerships:client:open-management", dealer.name)
+        local mgmtCfg = dealer.config.openManagement or dealer.config.management
+        local mgmtCoords = (type(mgmtCfg) == "table" and mgmtCfg.coords) or mgmtCfg
+        local mgmtSize = (type(mgmtCfg) == "table" and mgmtCfg.size) or 5
+
+        if mgmtCoords then
+          createLocation(
+            mgmtCoords,
+            mgmtSize,
+            not dealer.config.hideMarkers and dealer.config.markers or false,
+            function() Framework.Client.ShowTextUI(Config.OpenManagementPrompt) end,
+            function() Framework.Client.HideTextUI() end,
+            function()
+              if IsControlJustPressed(0, Config.OpenManagementKeyBind) then
+                TriggerEvent("jg-dealerships:client:open-management", dealer.name)
+              end
             end
-          end
-        )
+          )
+        end
       end
+
     end
   end
 end
@@ -130,11 +155,17 @@ end
 RegisterNetEvent("jg-dealerships:client:update-blips-text-uis", function()
   Wait(1000)
   createDealershipZonesAndBlips()
-  SpawnAllDealershipDisplayVehicles()
+  -- Added safe wrapper to prevent nil errors
+  if type(SpawnAllDealershipDisplayVehicles) == "function" then 
+    SpawnAllDealershipDisplayVehicles() 
+  end
 end)
 
 CreateThread(function()
-  Wait(1000)
+  Wait(2000) -- Increased wait to ensure cl-display-vehicles loads first
   createDealershipZonesAndBlips()
-  SpawnAllDealershipDisplayVehicles()
+  -- Added safe wrapper to prevent nil errors
+  if type(SpawnAllDealershipDisplayVehicles) == "function" then 
+    SpawnAllDealershipDisplayVehicles() 
+  end
 end)

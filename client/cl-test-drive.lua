@@ -67,40 +67,69 @@ local function StartTestDrive(dealershipId, vehicleModel, color)
     local spawnCoords = FindVehicleSpawnCoords(config.testDriveSpawn)
 
     ExitShowroom()
-    Wait(500)
+    Wait(1000) -- Increased wait time to let the showroom vehicle fully despawn from memory
 
     local vehEntity = false
     local netId = nil
 
     if not Config.SpawnVehiclesWithServerSetter then
         vehEntity = SpawnVehicleClient(0, vehicleModel, plate, spawnCoords, true, {plate = plate, colour = color}, "testDrive")
-        if not vehEntity then return false end
-        netId = VehToNet(vehEntity)
+        
+        if not vehEntity or vehEntity == 0 then return false end
+        
+        -- FIX: Prevent NETWORK_GET_NETWORK_ID_FROM_ENTITY error by ensuring entity is networked
+        local timeout = 50
+        while not NetworkGetEntityIsNetworked(vehEntity) and timeout > 0 do
+            Wait(50)
+            timeout = timeout - 1
+        end
+        
+        if not NetworkGetEntityIsNetworked(vehEntity) then
+            NetworkRegisterEntityAsNetworked(vehEntity)
+            Wait(100) -- Give the engine a tick to register
+        end
+        
+        if NetworkGetEntityIsNetworked(vehEntity) then
+            netId = VehToNet(vehEntity)
+            SetNetworkIdExistsOnAllMachines(netId, true)
+        else
+            print("^1[Dealership] Warning: Failed to network test-drive vehicle.^7")
+            JGDeleteVehicle(vehEntity)
+            return false
+        end
     end
 
     local success, serverNetId = lib.callback.await("jg-dealerships:server:start-test-drive", false, dealershipId, spawnCoords, netId, vehicleModel, config.enableTestDrive, plate, color)
 
     if serverNetId then
         netId = serverNetId
-        local resolvedVeh = NetToVeh(netId)
-        if resolvedVeh and resolvedVeh ~= 0 then
-            vehEntity = resolvedVeh
+        
+        local timeout = 50
+        while timeout > 0 do
+            if NetworkDoesNetworkIdExist(netId) then
+                local resolvedVeh = NetToVeh(netId)
+                if resolvedVeh and resolvedVeh ~= 0 then
+                    vehEntity = resolvedVeh
+                    break
+                end
+            end
+            Wait(50)
+            timeout = timeout - 1
         end
     end
 
-    if not success then
-        if vehEntity then JGDeleteVehicle(vehEntity) end
+    if not success or not vehEntity or vehEntity == 0 then
+        if vehEntity and vehEntity ~= 0 then JGDeleteVehicle(vehEntity) end
         return false
     end
 
-    if Config.SpawnVehiclesWithServerSetter and not vehEntity then
-        print("^1[ERROR] There was a problem spawning in your vehicle for the test drive.^7")
-        return false
-    end
+    -- Force the player into the driver's seat
+    TaskWarpPedIntoVehicle(cache.ped, vehEntity, -1)
 
     Globals.IsTestDriving = true
     testDriveVehicle = vehEntity
 
+    -- Release the UI focus
     SetNuiFocus(false, false)
     SendNUIMessage({
         type = "testDriveHud",
@@ -134,8 +163,11 @@ RegisterNUICallback("test-drive", function(data, cb)
     local success = StartTestDrive(data.dealershipId, data.vehicle, data.color)
 
     if not success then
+        -- FIX: Release the NUI focus immediately so the player doesn't get permanently stuck
+        SetNuiFocus(false, false)
         DoScreenFadeIn(500)
-        return cb({error = true})
+        cb(false) -- Returns a clean false instead of {error=true} to prevent UI promise rejection spam
+        return
     end
 
     cb(true)
