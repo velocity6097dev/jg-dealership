@@ -9,8 +9,8 @@ function L0_1()
   L0_2 = L0_2(L1_2, L2_2)
   L1_2 = pairs
   L2_2 = L0_2
-  L1_2, L2_2, L3_2, L4_2 = L1_2(L2_2)
-  for L5_2, L6_2 in L1_2, L2_2, L3_2, L4_2 do
+  L1_2, L2_2, L3_2 = L1_2(L2_2)
+  for L5_2, L6_2 in L1_2, L2_2, L3_2 do
     L7_2 = L6_2.financed
     if L7_2 then
       L7_2 = L6_2.finance_data

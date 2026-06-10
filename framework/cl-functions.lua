@@ -37,7 +37,6 @@ function Framework.Client.HideTextUI()
   end
 end
 
-
 ---@param msg string
 ---@param type? "success" | "warning" | "error"
 ---@param time? number

@@ -52,8 +52,8 @@ function L0_1(A0_2, A1_2, A2_2, A3_2)
   L5_2 = {}
   L6_2 = ipairs
   L7_2 = L4_2
-  L6_2, L7_2, L8_2, L9_2 = L6_2(L7_2)
-  for L10_2, L11_2 in L6_2, L7_2, L8_2, L9_2 do
+  L6_2, L7_2, L8_2 = L6_2(L7_2)
+  for L10_2, L11_2 in L6_2, L7_2, L8_2 do
     if not A3_2 then
       L12_2 = L11_2.id
       if A0_2 == L12_2 then
@@ -102,8 +102,8 @@ function L0_1(A0_2)
   L3_2 = pairs
   L4_2 = Config
   L4_2 = L4_2.DealershipLocations
-  L3_2, L4_2, L5_2, L6_2 = L3_2(L4_2)
-  for L7_2, L8_2 in L3_2, L4_2, L5_2, L6_2 do
+  L3_2, L4_2, L5_2 = L3_2(L4_2)
+  for L7_2, L8_2 in L3_2, L4_2, L5_2 do
     L9_2 = L8_2.openShowroom
     L9_2 = L9_2.coords
     L10_2 = vector3
@@ -166,8 +166,8 @@ function L2_1(A0_2)
   L1_2 = pairs
   L2_2 = Config
   L2_2 = L2_2.DealershipLocations
-  L1_2, L2_2, L3_2, L4_2 = L1_2(L2_2)
-  for L5_2, L6_2 in L1_2, L2_2, L3_2, L4_2 do
+  L1_2, L2_2, L3_2 = L1_2(L2_2)
+  for L5_2, L6_2 in L1_2, L2_2, L3_2 do
     L7_2 = MySQL
     L7_2 = L7_2.insert
     L7_2 = L7_2.await
@@ -197,8 +197,8 @@ function L2_1(A0_2)
   L2_2 = L2_2(L3_2)
   L3_2 = pairs
   L4_2 = L2_2
-  L3_2, L4_2, L5_2, L6_2 = L3_2(L4_2)
-  for L7_2, L8_2 in L3_2, L4_2, L5_2, L6_2 do
+  L3_2, L4_2, L5_2 = L3_2(L4_2)
+  for L7_2, L8_2 in L3_2, L4_2, L5_2 do
     L9_2 = MySQL
     L9_2 = L9_2.update
     L9_2 = L9_2.await

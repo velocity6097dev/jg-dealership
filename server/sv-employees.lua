@@ -106,8 +106,8 @@ function L2_1(A0_2)
   L2_2 = GetEntityCoords
   L3_2 = GetPlayerPed
   L4_2 = A0_2
-  L3_2, L4_2, L5_2, L6_2, L7_2 = L3_2(L4_2)
-  L2_2, L3_2, L4_2, L5_2, L6_2, L7_2 = L2_2(L3_2, L4_2, L5_2, L6_2, L7_2)
+  L3_2, L4_2, L5_2 = L3_2(L4_2)
+  L2_2, L3_2, L4_2, L5_2 = L2_2(L3_2, L4_2, L5_2, L6_2, L7_2)
   L1_2, L2_2 = L1_2(L2_2, L3_2, L4_2, L5_2, L6_2, L7_2)
   L3_2 = Config
   L3_2 = L3_2.DealershipLocations

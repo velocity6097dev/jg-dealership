@@ -31,8 +31,8 @@ function L2_1(A0_2)
   end
   L4_2 = pairs
   L5_2 = L2_2
-  L4_2, L5_2, L6_2, L7_2 = L4_2(L5_2)
-  for L8_2, L9_2 in L4_2, L5_2, L6_2, L7_2 do
+  L4_2, L5_2, L6_2 = L4_2(L5_2)
+  for L8_2, L9_2 in L4_2, L5_2, L6_2 do
     L10_2 = Config
     L10_2 = L10_2.DealershipLocations
     L11_2 = L9_2.name

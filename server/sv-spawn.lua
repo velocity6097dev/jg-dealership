@@ -70,7 +70,7 @@ function L3_1(A0_2, A1_2, A2_2, A3_2, A4_2, A5_2, A6_2)
   L9_2 = L7_2
   L10_2 = GetPlayerRoutingBucket
   L11_2 = A0_2
-  L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2 = L10_2(L11_2)
+  L10_2, L11_2, L12_2, L13_2, L14_2 = L10_2(L11_2)
   L8_2(L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2)
   L8_2 = SetEntityOrphanMode
   if L8_2 then

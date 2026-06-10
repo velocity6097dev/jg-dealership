@@ -33,7 +33,7 @@ Config.SellVehicleKeyBind = 38
 -- If you know what this means, I do recommend enabling it but be aware you may experience reliability issues on more populated servers
 -- Having significant issues? I beg you to just set it back to false before opening a ticket with us
 -- Want to read my rant about server spawned vehicles? https://docs.jgscripts.com/advanced-garages/misc/why-are-you-not-using-createvehicleserversetter-by-default
-Config.SpawnVehiclesWithServerSetter = false
+Config.SpawnVehiclesWithServerSetter = true
 
 -- Finance (to disable finance, you have to do it on a per-location basis with Config.DealershipLocations below)
 Config.FinancePayments = 12
@@ -305,5 +305,5 @@ Config.DealerAdminCommand = "dealeradmin"
 Config.RemoveGeneratorsAroundDealership = 60.0
 Config.AutoRunSQL = true
 Config.ReturnToPreviousRoutingBucket = false
-Config.HideWatermark = false
+Config.HideWatermark = true
 Config.Debug = false

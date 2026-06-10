@@ -327,8 +327,8 @@ function L3_1(A0_2, A1_2)
   end
   L4_2 = ipairs
   L5_2 = L3_2
-  L4_2, L5_2, L6_2, L7_2 = L4_2(L5_2)
-  for L8_2, L9_2 in L4_2, L5_2, L6_2, L7_2 do
+  L4_2, L5_2, L6_2 = L4_2(L5_2)
+  for L8_2, L9_2 in L4_2, L5_2, L6_2 do
     L10_2 = L3_2[L8_2]
     L11_2 = L9_2.delivery_time
     L12_2 = os
@@ -386,8 +386,8 @@ function L3_1(A0_2, A1_2)
   L5_2 = L5_2(L6_2, L7_2)
   L6_2 = ipairs
   L7_2 = L5_2
-  L6_2, L7_2, L8_2, L9_2 = L6_2(L7_2)
-  for L10_2, L11_2 in L6_2, L7_2, L8_2, L9_2 do
+  L6_2, L7_2, L8_2 = L6_2(L7_2)
+  for L10_2, L11_2 in L6_2, L7_2, L8_2 do
     L12_2 = L5_2[L10_2]
     L13_2 = Framework
     L13_2 = L13_2.Server
@@ -474,8 +474,8 @@ function L3_1(A0_2, A1_2)
   L4_2 = L4_2(L5_2, L6_2)
   L5_2 = ipairs
   L6_2 = L4_2
-  L5_2, L6_2, L7_2, L8_2 = L5_2(L6_2)
-  for L9_2, L10_2 in L5_2, L6_2, L7_2, L8_2 do
+  L5_2, L6_2, L7_2 = L5_2(L6_2)
+  for L9_2, L10_2 in L5_2, L6_2, L7_2 do
     L11_2 = {}
     L12_2 = L10_2.player
     L11_2.id = L12_2
@@ -1101,8 +1101,8 @@ function L1_1()
       L0_3 = L0_3(L1_3)
       L1_3 = ipairs
       L2_3 = L0_3
-      L1_3, L2_3, L3_3, L4_3 = L1_3(L2_3)
-      for L5_3, L6_3 in L1_3, L2_3, L3_3, L4_3 do
+      L1_3, L2_3, L3_3 = L1_3(L2_3)
+      for L5_3, L6_3 in L1_3, L2_3, L3_3 do
         L7_3 = L0_1
         L8_3 = L6_3
         L7_3(L8_3)

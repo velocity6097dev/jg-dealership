@@ -76,8 +76,8 @@ function L2_1(A0_2)
   L2_2 = {}
   L3_2 = pairs
   L4_2 = L1_2
-  L3_2, L4_2, L5_2, L6_2 = L3_2(L4_2)
-  for L7_2, L8_2 in L3_2, L4_2, L5_2, L6_2 do
+  L3_2, L4_2, L5_2 = L3_2(L4_2)
+  for L7_2, L8_2 in L3_2, L4_2, L5_2 do
     L9_2 = Config
     L9_2 = L9_2.DealershipLocations
     L10_2 = L8_2.name
@@ -115,8 +115,8 @@ function L2_1(A0_2)
   L4_2 = L4_2(L5_2)
   L5_2 = pairs
   L6_2 = L4_2
-  L5_2, L6_2, L7_2, L8_2 = L5_2(L6_2)
-  for L9_2, L10_2 in L5_2, L6_2, L7_2, L8_2 do
+  L5_2, L6_2, L7_2 = L5_2(L6_2)
+  for L9_2, L10_2 in L5_2, L6_2, L7_2 do
     L11_2 = #L3_2
     L11_2 = L11_2 + 1
     L12_2 = {}
@@ -147,7 +147,7 @@ function L2_1(A0_2)
   L8_2 = GetEntityCoords
   L9_2 = GetPlayerPed
   L10_2 = A0_2
-  L9_2, L10_2, L11_2, L12_2, L13_2, L14_2 = L9_2(L10_2)
+  L9_2, L10_2, L11_2, L12_2 = L9_2(L10_2)
   L8_2 = L8_2(L9_2, L10_2, L11_2, L12_2, L13_2, L14_2)
   L9_2 = 10.0
   L10_2 = true
@@ -222,8 +222,8 @@ function L2_1(A0_2, A1_2, A2_2, A3_2, A4_2, A5_2, A6_2)
   L7_2(L8_2, L9_2)
   L7_2 = ipairs
   L8_2 = A6_2
-  L7_2, L8_2, L9_2, L10_2 = L7_2(L8_2)
-  for L11_2, L12_2 in L7_2, L8_2, L9_2, L10_2 do
+  L7_2, L8_2, L9_2 = L7_2(L8_2)
+  for L11_2, L12_2 in L7_2, L8_2, L9_2 do
     L13_2 = MySQL
     L13_2 = L13_2.query
     L13_2 = L13_2.await
@@ -362,8 +362,8 @@ function L2_1(A0_2, A1_2, A2_2, A3_2, A4_2, A5_2, A6_2, A7_2)
   end
   L8_2 = ipairs
   L9_2 = A6_2
-  L8_2, L9_2, L10_2, L11_2 = L8_2(L9_2)
-  for L12_2, L13_2 in L8_2, L9_2, L10_2, L11_2 do
+  L8_2, L9_2, L10_2 = L8_2(L9_2)
+  for L12_2, L13_2 in L8_2, L9_2, L10_2 do
     L14_2 = MySQL
     L14_2 = L14_2.query
     L14_2 = L14_2.await
@@ -760,8 +760,8 @@ function L3_1(A0_2, A1_2, A2_2)
       end
       L4_2 = pairs
       L5_2 = L3_2
-      L4_2, L5_2, L6_2, L7_2 = L4_2(L5_2)
-      for L8_2, L9_2 in L4_2, L5_2, L6_2, L7_2 do
+      L4_2, L5_2, L6_2 = L4_2(L5_2)
+      for L8_2, L9_2 in L4_2, L5_2, L6_2 do
         L10_2 = MySQL
         L10_2 = L10_2.query
         L10_2 = L10_2.await
@@ -801,8 +801,8 @@ function L3_1(A0_2, A1_2, A2_2)
         end
         L11_2 = ipairs
         L12_2 = L10_2
-        L11_2, L12_2, L13_2, L14_2 = L11_2(L12_2)
-        for L15_2, L16_2 in L11_2, L12_2, L13_2, L14_2 do
+        L11_2, L12_2, L13_2 = L11_2(L12_2)
+        for L15_2, L16_2 in L11_2, L12_2, L13_2 do
           L17_2 = Config
           L17_2 = L17_2.DealershipLocations
           L17_2 = L17_2[L16_2]
@@ -877,8 +877,8 @@ function L3_1(A0_2, A1_2, A2_2)
         end
         L4_2 = pairs
         L5_2 = L3_2
-        L4_2, L5_2, L6_2, L7_2 = L4_2(L5_2)
-        for L8_2, L9_2 in L4_2, L5_2, L6_2, L7_2 do
+        L4_2, L5_2, L6_2 = L4_2(L5_2)
+        for L8_2, L9_2 in L4_2, L5_2, L6_2 do
           L10_2 = MySQL
           L10_2 = L10_2.query
           L10_2 = L10_2.await
@@ -918,8 +918,8 @@ function L3_1(A0_2, A1_2, A2_2)
             end
             L11_2 = ipairs
             L12_2 = L10_2
-            L11_2, L12_2, L13_2, L14_2 = L11_2(L12_2)
-            for L15_2, L16_2 in L11_2, L12_2, L13_2, L14_2 do
+            L11_2, L12_2, L13_2 = L11_2(L12_2)
+            for L15_2, L16_2 in L11_2, L12_2, L13_2 do
               L17_2 = Config
               L17_2 = L17_2.DealershipLocations
               L17_2 = L17_2[L16_2]
@@ -946,8 +946,8 @@ function L3_1(A0_2, A1_2, A2_2)
             L10_2 = pairs
             L11_2 = Config
             L11_2 = L11_2.DealershipLocations
-            L10_2, L11_2, L12_2, L13_2 = L10_2(L11_2)
-            for L14_2, L15_2 in L10_2, L11_2, L12_2, L13_2 do
+            L10_2, L11_2, L12_2 = L10_2(L11_2)
+            for L14_2, L15_2 in L10_2, L11_2, L12_2 do
               L16_2 = IsItemInList
               L17_2 = L15_2.categories
               L18_2 = L9_2.category
@@ -1023,8 +1023,8 @@ function L3_1(A0_2, A1_2, A2_2)
         L3_2 = L3_2(L4_2)
         L4_2 = pairs
         L5_2 = L3_2
-        L4_2, L5_2, L6_2, L7_2 = L4_2(L5_2)
-        for L8_2, L9_2 in L4_2, L5_2, L6_2, L7_2 do
+        L4_2, L5_2, L6_2 = L4_2(L5_2)
+        for L8_2, L9_2 in L4_2, L5_2, L6_2 do
           L10_2 = MySQL
           L10_2 = L10_2.query
           L10_2 = L10_2.await
@@ -1050,8 +1050,8 @@ function L3_1(A0_2, A1_2, A2_2)
           L10_2 = pairs
           L11_2 = Config
           L11_2 = L11_2.DealershipLocations
-          L10_2, L11_2, L12_2, L13_2 = L10_2(L11_2)
-          for L14_2, L15_2 in L10_2, L11_2, L12_2, L13_2 do
+          L10_2, L11_2, L12_2 = L10_2(L11_2)
+          for L14_2, L15_2 in L10_2, L11_2, L12_2 do
             L16_2 = IsItemInList
             L17_2 = L15_2.categories
             L18_2 = L9_2.category

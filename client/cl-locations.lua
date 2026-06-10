@@ -52,7 +52,6 @@ local function createLocation(coords, dist, marker, onEnter, onExit, nearby)
   points[#points+1] = markerPoint
 end
 
-
 -- New code
 
 local function createDealershipZonesAndBlips()
